@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+
+# Logs
+npm-debug.log*
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local environment
+.env
+.env.*
+
+# Spec / AI workflow files
+AGENTS.md
+
+# Build / generated files
+dist/
+build/
+coverage/
+
+# Python local if used for local serving
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Local static cache
+.cache/
+.tmp/

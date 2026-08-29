@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scoundrel — Solo Dungeon Crawler</title>
+  <meta name="description"
+    content="Jogo de cartas solo Scoundrel em formato digital com combate de calabouço, indicador D20 de vida e diário de ações." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <div id="screen-shake-layer" class="app-wrapper">
+    <!-- Cabeçalho Principal -->
+    <header class="game-header">
+      <div class="header-brand">
+        <div class="logo-icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" width="52" height="52" fill="currentColor" aria-hidden="true">
+            <path d="M288.4 55.8C308 44.7 332 44.7 351.5 55.8L543.5 164.6C563.5 176 575.9 197.2 575.9 220.3L575.9 435.9C575.9 458.9 563.5 480.2 543.5 491.6L351.5 600.4C331.9 611.5 307.9 611.5 288.4 600.4L96.4 491.5C76.4 480.1 64 458.8 64 435.8L64 220.2C64 197.2 76.4 175.9 96.4 164.5L288.4 55.8zM340.4 129C331 113.8 309 113.8 299.6 129L223 252.7L137.6 206.4L133.8 204.8C124.9 202.1 115 205.9 110.4 214.4C105.8 222.9 108 233.3 115.1 239.2L118.4 241.5L201.8 286.7L127.2 407.3C119.3 420.2 125 437 139 442.4L300 504.3L300 544C300 555 309 564 320 564C331 564 340 555 340 544L340 504.3L501 442.4C515 437 520.7 420.2 512.8 407.4L438.1 286.8L521.5 241.6C531.2 236.3 534.8 224.2 529.6 214.5C524.4 204.8 512.2 201.2 502.5 206.4L417 252.7L340.4 129zM293.4 458.9L171.4 412L225.9 323.9L293.4 458.9zM468.6 412L346.6 458.9L414.1 323.9L468.6 412zM383.3 296L320 422.6L256.7 296L383.3 296zM372 256L267.9 256L319.9 172L371.9 256z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="game-title">SCOUNDREL</h1>
+          <p class="game-subtitle">SOLO DUNGEON CRAWLER</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="rules-btn" class="action-btn secondary-btn" type="button" aria-haspopup="dialog"
+          aria-controls="rules-modal">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+          <span>Regras</span>
+        </button>
+
+        <button id="new-game-btn" class="action-btn primary-btn" type="button">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10" />
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+          </svg>
+          <span>Nova Partida</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Layout Principal da Aplicação -->
+    <main class="game-layout">
+      <!-- Sidebar Esquerda: Status do Jogador e D20 -->
+      <aside class="sidebar-panel">
+        <!-- Card de Vida D20 (Apenas contorno externo) -->
+        <section class="ui-panel health-panel" aria-labelledby="health-heading">
+          <div class="panel-header">
+            <span id="health-heading" class="panel-title">Pontos de Vida</span>
+            <span id="health-value" class="status-badge health-badge">20 / 20</span>
+          </div>
+
+          <div class="d20-wrapper">
+            <div id="d20-indicator" class="d20-contour state-healthy" aria-label="Indicador D20 de Vida">
+              <svg viewBox="0 0 100 100" class="d20-outline-svg" aria-hidden="true">
+                <defs>
+                  <linearGradient id="d20-contour-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--accent-glow)" stop-opacity="0.35" />
+                    <stop offset="100%" stop-color="rgba(10, 8, 20, 0.9)" />
+                  </linearGradient>
+                </defs>
+                <!-- Contorno externo estilizado de um Icosaedro D20 -->
+                <polygon points="50,4 92,26 92,74 50,96 8,74 8,26" class="d20-outer-shape" />
+              </svg>
+              <div class="d20-text-wrap">
+                <span id="d20-number" class="d20-number">20</span>
+                <span class="d20-sublabel">HP</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hp-track">
+            <div id="hp-bar-fill" class="hp-fill" style="width: 100%;"></div>
+          </div>
+        </section>
+
+        <!-- Card de Arma Equipada -->
+        <section class="ui-panel weapon-panel" aria-labelledby="weapon-heading">
+          <div class="panel-header">
+            <span id="weapon-heading" class="panel-title">Arma Equipada</span>
+            <span id="weapon-badge" class="status-badge weapon-badge">Desarmado</span>
+          </div>
+          <div class="weapon-info-row">
+            <div id="weapon-icon" class="weapon-mini-frame" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="14.5 17.5 3 6 3 3 6 3 17.5 14.5" />
+                <line x1="13" y1="19" x2="19" y2="13" />
+                <line x1="16" y1="16" x2="20" y2="20" />
+                <line x1="19" y1="21" x2="21" y2="19" />
+              </svg>
+            </div>
+            <div class="weapon-text-info">
+              <div id="weapon-name" class="weapon-title">Nenhuma (Punhos)</div>
+              <div id="weapon-durability" class="weapon-sub">Sem absorção de dano</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Card de Resumo do Dungeon -->
+        <section class="ui-panel dungeon-stats-panel">
+          <div class="stat-item">
+            <span class="stat-label">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="3" y="3" width="14" height="18" rx="2" />
+                <path d="M7 7h6" />
+                <path d="M7 11h6" />
+              </svg>
+              Restante no Baralho
+            </span>
+            <span id="deck-count" class="stat-value">40</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10" />
+                <polyline points="12 6 12 12 16 14" />
+              </svg>
+              Sala Atual
+            </span>
+            <span id="turn-count" class="stat-value">Turno 1</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <path d="M16 10a4 4 0 0 1-8 0" />
+              </svg>
+              Carta Guardada
+            </span>
+            <span id="carry-value" class="stat-value">Nenhuma</span>
+          </div>
+        </section>
+      </aside>
+
+      <!-- Área Central: Mesa de Cartas da Sala -->
+      <section class="ui-panel main-room-section">
+        <div class="room-header-row">
+          <div>
+            <p class="room-context-label">CALABOUÇO ATUAL</p>
+            <h2 id="room-turn-title" class="room-main-title">Sala 1 — Escolha 3 cartas</h2>
+          </div>
+          <div class="room-btn-group">
+            <button id="avoid-room-btn" class="action-btn secondary-btn" type="button">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="5 4 15 12 5 20 5 4" />
+                <line x1="19" y1="5" x2="19" y2="19" />
+              </svg>
+              <span>Fugir da Sala</span>
+            </button>
+
+            <button id="resolve-btn" class="action-btn resolve-btn" type="button" disabled>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M14.5 17.5L3 6V3h3l11.5 11.5" />
+                <path d="M13 19l6-6" />
+                <path d="M16 16l4 4" />
+                <path d="M19 21l2-2" />
+              </svg>
+              <span>Resolver (<span id="selection-counter">0/3</span>)</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="room-instruction-bar">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="10" />
+            <line x1="12" y1="16" x2="12" y2="12" />
+            <line x1="12" y1="8" x2="12.01" y2="8" />
+          </svg>
+          <span id="selection-help-text" class="help-text">
+            Selecione 3 cartas na sequência tática desejada. A 4ª carta permanecerá para a próxima sala.
+          </span>
+        </div>
+
+        <!-- Grade de Cartas -->
+        <div id="room-cards" class="cards-grid" role="region" aria-label="Cartas disponíveis na sala">
+          <!-- Renderizado dinamicamente via main.js -->
+        </div>
+      </section>
+
+      <!-- Sidebar Direita: Diário de Batalha -->
+      <aside class="sidebar-panel">
+        <section class="ui-panel log-panel">
+          <div class="panel-header">
+            <span class="panel-title">Diário de Batalha</span>
+            <span id="log-count" class="status-badge">0 ações</span>
+          </div>
+          <ul id="log-list" class="log-container" aria-live="polite"></ul>
+        </section>
+      </aside>
+    </main>
+  </div>
+
+  <!-- Modal de Regras -->
+  <div id="rules-modal" class="modal-overlay" hidden>
+    <div class="modal-card ui-panel" role="dialog" aria-modal="true" aria-labelledby="rules-modal-title">
+      <div class="modal-card-header">
+        <div class="modal-title-wrap">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+          </svg>
+          <h2 id="rules-modal-title" class="modal-heading">Manual de Regras</h2>
+        </div>
+        <button id="close-rules-btn" class="close-modal-btn" type="button" aria-label="Fechar">&times;</button>
+      </div>
+
+      <div class="modal-content">
+        <section class="rule-block">
+          <h3>Objetivo da Campanha</h3>
+          <p>Conquiste o calabouço (44 cartas) sem que seus pontos de vida (HP) cheguem a zero. Sua pontuação final será
+            igual ao HP restante caso vença, ou negativa caso seja derrotado.</p>
+        </section>
+
+        <section class="rule-block">
+          <h3>Tipos de Cartas</h3>
+          <ul class="rule-list">
+            <li><strong>Paus ♣ e Espadas ♠ (Monstros):</strong> Valor de 2 a 14 (A=14, K=13, Q=12, J=11). Causam dano
+              direto à sua vida se enfrentar desarmado.</li>
+            <li><strong>Ouros ♦ (Armas):</strong> Valor de 2 a 10. Reduzem o dano recebido pelo valor da arma. A cada
+              monstro derrotado, a arma sofre desgaste e só poderá ser usada contra monstros com valor <em>estritamente
+                menor</em>.</li>
+            <li><strong>Copas ♥ (Poções de Cura):</strong> Valor de 2 a 10. Recuperam pontos de vida até o teto de 20.
+              <em>Apenas uma poção surte efeito por sala; poções adicionais são descartadas sem efeito.</em></li>
+          </ul>
+        </section>
+
+        <section class="rule-block">
+          <h3>Dinâmica da Sala</h3>
+          <ul class="rule-list">
+            <li>A cada turno, 4 cartas são reveladas. Você deve resolver <strong>exatamente 3 cartas</strong> na ordem
+              que desejar. A 4ª carta fica guardada para a próxima sala.</li>
+            <li>Você pode <strong>Fugir da Sala</strong> para enviar as 4 cartas para o fundo do baralho, mas não é
+              permitido fugir de duas salas seguidas.</li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="modal-card-footer">
+        <button id="understand-rules-btn" class="action-btn primary-btn" type="button">Entendi as Regras</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Fim de Jogo (Vitória / Derrota) -->
+  <div id="endgame-modal" class="modal-overlay" hidden>
+    <div class="modal-card ui-panel endgame-card" role="dialog" aria-modal="true">
+      <div id="endgame-banner" class="endgame-status-header state-victory">
+        <div id="endgame-icon" class="endgame-emblem">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="8" r="7" />
+            <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88" />
+          </svg>
+        </div>
+        <h2 id="endgame-title" class="endgame-heading-text">VITÓRIA NO DUNGEON</h2>
+        <p id="endgame-subtitle" class="endgame-desc-text">Você superou todas as provações e sobreviveu ao calabouço.
+        </p>
+      </div>
+
+      <div class="stats-summary-grid">
+        <div class="stat-card">
+          <span class="stat-card-title">Pontuação Final</span>
+          <span id="endgame-score" class="stat-card-number highlight">+20</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-title">HP Restante</span>
+          <span id="endgame-hp" class="stat-card-number">20 / 20</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-title">Monstros Abatidos</span>
+          <span id="endgame-monsters" class="stat-card-number">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-title">Dano Bloqueado</span>
+          <span id="endgame-blocked" class="stat-card-number">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-title">Poções Consumidas</span>
+          <span id="endgame-potions" class="stat-card-number">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-card-title">Salas Concluídas</span>
+          <span id="endgame-rooms" class="stat-card-number">0</span>
+        </div>
+      </div>
+
+      <div class="modal-card-footer center-footer">
+        <button id="restart-game-btn" class="action-btn primary-btn large-action-btn" type="button">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="23 4 23 10 17 10" />
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+          </svg>
+          <span>Jogar Novamente</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="src/main.js"></script>
+</body>
+
+</html>

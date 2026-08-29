@@ -1,0 +1,920 @@
+/* ==========================================================================
+   SCOUNDREL — WARM WOOD TABLETOP & CLEAN CARD DESIGN SYSTEM
+   ========================================================================== */
+
+:root {
+  /* Paleta Base Estilo Madeira / Taberna */
+  --bg-main: #18110a;
+  --bg-surface: #24190f;
+  --panel-bg: rgba(36, 26, 17, 0.94);
+  --panel-border: rgba(185, 142, 98, 0.28);
+  --panel-border-hover: rgba(225, 180, 130, 0.48);
+  --text-main: #fefcf9;
+  --text-muted: #d8c5ad;
+  --text-dim: #9e8972;
+
+  /* Cores Temáticas de Jogo */
+  --gold: #d97706;
+  --gold-accent: #f59e0b;
+  --emerald: #059669;
+  --emerald-accent: #10b981;
+  --sapphire: #0284c7;
+  --sapphire-accent: #38bdf8;
+  --crimson: #e11d48;
+  --crimson-accent: #f43f5e;
+  --amber: #d97706;
+
+  /* Tipografia */
+  --font-fantasy: 'Cinzel', serif;
+  --font-ui: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+
+  /* Dimensões dos Cards */
+  --card-width: 155px;
+  --card-height: 235px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  background-image: 
+    radial-gradient(circle at 50% 12%, rgba(195, 145, 95, 0.14) 0%, transparent 65%),
+    linear-gradient(180deg, #24170d 0%, #150e07 100%);
+  color: var(--text-main);
+  font-family: var(--font-ui);
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ==========================================================================
+   LAYOUT & CABEÇALHO
+   ========================================================================== */
+
+.app-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px 24px 36px;
+  transition: transform 0.15s ease-out;
+}
+
+.game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 24px;
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.logo-icon {
+  width: 62px;
+  height: 62px;
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  color: var(--gold-accent);
+  flex-shrink: 0;
+}
+
+.game-title {
+  font-family: var(--font-fantasy);
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  color: #ffffff;
+}
+
+.game-subtitle {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.16em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.game-layout {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr) 310px;
+  gap: 24px;
+  align-items: start;
+}
+
+/* ==========================================================================
+   PAINÉIS DECORATIVOS (ESTILO MADEIRA / COURO)
+   ========================================================================== */
+
+.ui-panel {
+  background: var(--panel-bg);
+  border: 1px solid var(--panel-border);
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.2s ease;
+}
+
+.ui-panel:hover {
+  border-color: var(--panel-border-hover);
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.panel-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.status-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+}
+
+.health-badge {
+  background: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.4);
+  color: var(--emerald-accent);
+}
+
+.weapon-badge {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--sapphire-accent);
+}
+
+.critical-badge {
+  background: rgba(244, 63, 94, 0.18);
+  border-color: rgba(244, 63, 94, 0.45);
+  color: var(--crimson-accent);
+}
+
+.dead-badge {
+  background: rgba(100, 116, 139, 0.2);
+  border-color: #64748b;
+  color: #94a3b8;
+}
+
+/* ==========================================================================
+   BOTÕES MODERNOS
+   ========================================================================== */
+
+.action-btn {
+  font-family: var(--font-ui);
+  font-size: 0.84rem;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.18s ease;
+  user-select: none;
+}
+
+.action-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.action-btn:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.primary-btn {
+  background: #d97706;
+  color: #ffffff;
+  border-color: #f59e0b;
+}
+
+.primary-btn:hover:not(:disabled) {
+  background: #b45309;
+}
+
+.secondary-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
+  color: var(--text-main);
+}
+
+.secondary-btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.resolve-btn {
+  background: #059669;
+  color: #ffffff;
+  border-color: #10b981;
+}
+
+.resolve-btn:hover:not(:disabled) {
+  background: #047857;
+}
+
+.large-action-btn {
+  font-size: 0.95rem;
+  padding: 13px 26px;
+}
+
+/* ==========================================================================
+   D20 DE VIDA (APENAS CONTORNO EXTERNO)
+   ========================================================================== */
+
+.d20-wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0 16px;
+}
+
+.d20-contour {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  display: grid;
+  place-items: center;
+}
+
+.d20-outline-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.d20-outer-shape {
+  fill: rgba(24, 17, 11, 0.92);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  transition: stroke 0.25s ease;
+}
+
+/* Estados de Cor do Contorno D20 */
+.d20-contour.state-healthy .d20-outer-shape {
+  stroke: #10b981;
+}
+
+.d20-contour.state-wounded .d20-outer-shape {
+  stroke: #f59e0b;
+}
+
+.d20-contour.state-critical .d20-outer-shape {
+  stroke: #f43f5e;
+}
+
+.d20-contour.state-dead .d20-outer-shape {
+  stroke: #475569;
+  fill: #1a120b;
+}
+
+.d20-text-wrap {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+.d20-number {
+  font-family: var(--font-fantasy);
+  font-size: 1.85rem;
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1;
+}
+
+.d20-sublabel {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+.hp-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.hp-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #f43f5e 0%, #f59e0b 50%, #10b981 100%);
+  border-radius: 999px;
+  transition: width 0.3s ease-out;
+}
+
+/* ==========================================================================
+   ARMA EQUIPADA & RESUMO DO DUNGEON
+   ========================================================================== */
+
+.weapon-panel {
+  margin-top: 18px;
+}
+
+.weapon-info-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(20, 14, 9, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.weapon-mini-frame {
+  width: 40px;
+  height: 40px;
+  background: rgba(56, 189, 248, 0.08);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: var(--sapphire-accent);
+  flex-shrink: 0;
+}
+
+.weapon-title {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--sapphire-accent);
+  margin-bottom: 2px;
+}
+
+.weapon-sub {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+.dungeon-stats-panel {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  font-size: 0.85rem;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.stat-label {
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stat-value {
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* ==========================================================================
+   MESA DE CARTAS DA SALA
+   ========================================================================== */
+
+.main-room-section {
+  /* Sem min-height fixo: cresce apenas o suficiente para o conteúdo */
+}
+
+.room-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.room-context-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.room-main-title {
+  font-family: var(--font-fantasy);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.room-btn-group {
+  display: flex;
+  gap: 10px;
+}
+
+.room-instruction-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(24, 17, 10, 0.5);
+  border-left: 3px solid var(--gold-accent);
+  border-radius: 0 6px 6px 0;
+  padding: 10px 14px;
+  margin: 16px 0 24px;
+  font-size: 0.84rem;
+  color: var(--text-muted);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+/* ==========================================================================
+   CARDS DE JOGO COM CORES CLARAS E NÚMEROS DESTACADOS
+   ========================================================================== */
+
+.game-card {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background: #ffffff;
+  border: 2px solid rgba(215, 195, 170, 0.6);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 12px 14px;
+  cursor: pointer;
+  position: relative;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.6), 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, border-color 0.2s ease;
+  user-select: none;
+  text-align: left;
+}
+
+.game-card:hover:not(:disabled) {
+  transform: translateY(-8px);
+  border-color: var(--gold-accent);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.75);
+}
+
+.game-card.selected {
+  border-color: var(--gold-accent);
+  transform: translateY(-12px);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.85), 0 0 0 2px rgba(245, 158, 11, 0.5);
+}
+
+/* Fundos Claros Específicos por Tipo */
+.game-card.monster {
+  background: #fff8f8;
+  color: #991b1b;
+}
+
+.game-card.weapon {
+  background: #f4faff;
+  color: #0369a1;
+}
+
+.game-card.potion {
+  background: #f4fbf6;
+  color: #15803d;
+}
+
+.card-header-bar,
+.card-footer-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Números e Nomes Ampliados e de Alta Visibilidade */
+.card-label-val {
+  font-family: var(--font-fantasy);
+  font-size: 1.35rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.card-footer-suit {
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.card-footer-val {
+  font-family: var(--font-fantasy);
+  font-size: 1.5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.card-category-badge {
+  font-family: var(--font-ui);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.game-card.monster .card-category-badge { background: rgba(225, 29, 72, 0.12); color: #be123c; }
+.game-card.weapon .card-category-badge { background: rgba(2, 132, 199, 0.12); color: #0284c7; }
+.game-card.potion .card-category-badge { background: rgba(5, 150, 105, 0.12); color: #059669; }
+
+.card-artwork-frame {
+  width: 84px;
+  height: 84px;
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+}
+
+.card-outline-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Badge de Sequência de Ordem [1], [2], [3] */
+.card-order-badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 28px;
+  height: 28px;
+  background: #d97706;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  color: #ffffff;
+  font-family: var(--font-fantasy);
+  font-size: 0.85rem;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+}
+
+.empty-dungeon-message {
+  grid-column: 1 / -1;
+  display: grid;
+  place-items: center;
+  padding: 60px 20px;
+  background: rgba(20, 14, 9, 0.4);
+  border: 1px dashed var(--panel-border);
+  border-radius: 12px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   DIÁRIO DE BATALHA
+   ========================================================================== */
+
+.log-panel {
+  height: 100%;
+}
+
+.log-container {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-height: 520px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.log-container::-webkit-scrollbar {
+  width: 5px;
+}
+.log-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+}
+
+.log-item {
+  background: rgba(20, 14, 9, 0.65);
+  border-left: 3px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0 6px 6px 0;
+  padding: 8px 12px;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.log-item.log-type-heal { border-left-color: var(--emerald-accent); background: rgba(16, 185, 129, 0.08); }
+.log-item.log-type-equip { border-left-color: var(--sapphire-accent); background: rgba(56, 189, 248, 0.08); }
+.log-item.log-type-combat-weapon,
+.log-item.log-type-combat-bare,
+.log-item.log-type-combat-degraded { border-left-color: var(--crimson-accent); background: rgba(244, 63, 94, 0.08); }
+.log-item.log-type-avoid { border-left-color: var(--amber); background: rgba(217, 119, 6, 0.08); }
+.log-item.log-type-victory { border-left-color: var(--gold-accent); background: rgba(245, 158, 11, 0.12); }
+.log-item.log-type-defeat { border-left-color: #ef4444; background: rgba(239, 68, 68, 0.15); }
+
+/* ==========================================================================
+   MODAIS (REGRAS & FIM DE JOGO)
+   ========================================================================== */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 6, 4, 0.85);
+  backdrop-filter: blur(6px);
+  display: grid;
+  place-items: center;
+  z-index: 100;
+  padding: 18px;
+}
+
+.modal-overlay[hidden] {
+  display: none !important;
+}
+
+.modal-card {
+  max-width: 580px;
+  width: 100%;
+  background: #20150d;
+  border: 1px solid var(--panel-border-hover);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  animation: modal-pop 0.22s ease-out;
+}
+
+@keyframes modal-pop {
+  0% { transform: scale(0.96) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--gold-accent);
+}
+
+.modal-heading {
+  font-family: var(--font-fantasy);
+  font-size: 1.15rem;
+  color: #ffffff;
+}
+
+.close-modal-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.close-modal-btn:hover {
+  color: #fff;
+}
+
+.modal-content {
+  padding: 18px 0;
+  max-height: 62vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rule-block h3 {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--gold-accent);
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.rule-block p,
+.rule-list li {
+  font-size: 0.88rem;
+  color: #e2d9ce;
+  line-height: 1.55;
+}
+
+.rule-list {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-card-footer {
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: flex-end;
+}
+
+/* Modal de Fim de Jogo */
+.endgame-card {
+  text-align: center;
+}
+
+.endgame-status-header {
+  padding: 24px 16px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.endgame-status-header.state-victory {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  color: var(--gold-accent);
+}
+
+.endgame-status-header.state-defeat {
+  background: rgba(244, 63, 94, 0.12);
+  border: 1px solid rgba(244, 63, 94, 0.4);
+  color: var(--crimson-accent);
+}
+
+.endgame-emblem {
+  margin-bottom: 8px;
+  display: inline-flex;
+}
+
+.endgame-heading-text {
+  font-family: var(--font-fantasy);
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+
+.endgame-desc-text {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.stats-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.stat-card {
+  background: rgba(20, 14, 9, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-card-title {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.stat-card-number {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.stat-card-number.highlight {
+  color: var(--gold-accent);
+  font-size: 1.4rem;
+  font-family: var(--font-fantasy);
+}
+
+.center-footer {
+  justify-content: center;
+}
+
+/* ==========================================================================
+   FEEDBACK DE IMPACTO
+   ========================================================================== */
+
+.shake-effect {
+  animation: shake-animation 0.3s ease-in-out;
+}
+
+@keyframes shake-animation {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-5px); }
+  40% { transform: translateX(5px); }
+  60% { transform: translateX(-3px); }
+  80% { transform: translateX(3px); }
+}
+
+/* ==========================================================================
+   RESPONSIVIDADE
+   ========================================================================== */
+
+@media (max-width: 1080px) {
+  .game-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cards-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+  }
+}
+
+@media (max-width: 680px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .game-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .room-header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .room-btn-group {
+    width: 100%;
+  }
+
+  .room-btn-group button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+}
