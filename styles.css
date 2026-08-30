@@ -642,7 +642,8 @@ body {
   gap: 10px;
   max-height: 520px;
   overflow-y: auto;
-  padding-right: 6px;
+  padding-right: 8px;
+  scrollbar-gutter: stable;
 }
 
 .log-container::-webkit-scrollbar {
@@ -740,12 +741,13 @@ body {
 }
 
 .modal-content {
-  padding: 18px 0;
+  padding: 18px 8px 18px 0;
   max-height: 62vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  scrollbar-gutter: stable;
 }
 
 .rule-block h3 {

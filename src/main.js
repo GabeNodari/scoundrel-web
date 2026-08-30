@@ -251,7 +251,18 @@ function render() {
 
   els.deckCount.textContent = String(state.deck.length);
   els.turnCount.textContent = `Turno ${state.turn}`;
-  els.carryValue.textContent = state.carry ? `${state.carry.label} ${state.carry.symbol}` : 'Nenhuma';
+  const carryToDisplay = state.carryDisplay ?? state.carry;
+  els.carryValue.textContent = carryToDisplay ? `${carryToDisplay.label} ${carryToDisplay.symbol}` : 'Nenhuma';
+
+  if (!carryToDisplay) {
+    els.carryValue.style.color = 'var(--text-muted)';
+  } else if (carryToDisplay.type === 'potion') {
+    els.carryValue.style.color = 'var(--emerald-accent)';
+  } else if (carryToDisplay.type === 'weapon') {
+    els.carryValue.style.color = 'var(--sapphire-accent)';
+  } else {
+    els.carryValue.style.color = 'var(--crimson-accent)';
+  }
 
   const requiredCount = getRequiredCardCount(state);
   const isFinalRoom = state.deck.length === 0 && state.room.length <= 3;

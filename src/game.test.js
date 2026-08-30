@@ -119,6 +119,23 @@ test('resolves cards in player-selected order', () => {
   assert.equal(state.outcome, 'won');
 });
 
+test('drawRoom consumes the carry card into the current room while keeping a visible carry state', () => {
+  const state = createInitialGameState();
+  const carry = { id: 'carry-1', suit: 'heart', value: 6, type: 'potion', label: '6', symbol: '♥', color: 'red' };
+  state.carry = carry;
+  state.deck = [
+    { id: 'd1', suit: 'club', value: 8, type: 'monster', label: '8', symbol: '♣', color: 'black' },
+    { id: 'd2', suit: 'club', value: 9, type: 'monster', label: '9', symbol: '♣', color: 'black' }
+  ];
+
+  drawRoom(state);
+
+  assert.equal(state.room[0].id, 'carry-1');
+  assert.equal(state.carry, null);
+  assert.equal(state.carryDisplay.id, 'carry-1');
+  assert.equal(state.room.length, 3);
+});
+
 test('avoiding a room places cards at bottom of deck without shuffling and blocks consecutive avoid', () => {
   const state = createInitialGameState();
   const c1 = { id: 'c1', suit: 'club', value: 2, type: 'monster', label: '2', symbol: '♣', color: 'black' };

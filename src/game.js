@@ -67,6 +67,7 @@ function createInitialGameState() {
     deck: createDeck(),
     room: [],
     carry: null,
+    carryDisplay: null,
     weapon: null,
     weaponLastDefeatedValue: null,
     avoidedLastRoom: false,
@@ -184,8 +185,11 @@ function drawRoom(state) {
   const nextCards = [];
 
   if (state.carry) {
+    state.carryDisplay = state.carry;
     nextCards.push(state.carry);
     state.carry = null;
+  } else {
+    state.carryDisplay = null;
   }
 
   while (nextCards.length < 4 && state.deck.length > 0) {
@@ -290,6 +294,7 @@ function resolveRoom(state, options = {}) {
 
   state.stats.roomsCleared += 1;
   state.carry = remaining[0] ?? null;
+  state.carryDisplay = state.carry;
   state.room = [];
   state.selectedCardIds = [];
   state.avoidedLastRoom = false;
